@@ -1,0 +1,73 @@
+.App {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  padding: 20px;
+  background-color: #f7f7f7;
+}
+
+h1 {
+  margin-bottom: 20px;
+}
+
+.character-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin: 0 auto;
+  max-width: 600px;
+}
+
+.character-box {
+  border: 2px solid #ccc;
+  padding: 10px;
+  background-color: #fff;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-align: center;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  font-size: 14px;
+  font-weight: bold;
+  border-radius: 8px;
+}
+
+.character-box.selected {
+  border-color: #4caf50;
+  background-color: #e8f5e9;
+}
+
+.character-image {
+  width: 100px; /* Set a fixed width */
+  height: 100px; /* Set a fixed height */
+  object-fit: cover; /* Ensures the image fits without distortion */
+  border-radius: 5px; /* Optional: gives rounded corners */
+  margin-bottom: 10px;
+}
+
+.character-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* Creates 4 columns */
+  gap: 10px;
+  margin: 0 auto;
+  max-width: 600px; /* Limits the overall grid width */
+}
+
+.start-button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.start-button:hover {
+  background-color: #45a049;
+}
+
+.forced-selected {
+  border: 3px solid red; /* Highlight Werewolf #1 */
+  pointer-events: none; /* Prevent clicking */
+}
