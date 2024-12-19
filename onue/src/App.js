@@ -21,12 +21,31 @@ const characters = [
   { name: "Villager #3", alt: "Tiny Tim", image: "./images/Villager_3.png", order: null}
 ];
 
-const playAudio = (filePath) => {
+let audioContext;
+
+const playAudio = async (filePath) => {
+    if (!audioContext) {
+        console.error("AudioContext not initialized. Ensure user clicked Start.");
+        return;
+    }
+
+    const response = await fetch(filePath);
+    const arrayBuffer = await response.arrayBuffer();
+    const audioBuffer = await audioContext.decodeAudioData(arrayBuffer);
+    const source = audioContext.createBufferSource();
+    source.buffer = audioBuffer;
+    source.connect(audioContext.destination);
+    source.start();
     return new Promise((resolve) => {
-        const audio = new Audio(filePath);
-        audio.onended = resolve; // Resolve when the audio finishes
-        audio.play();
+        source.onended = resolve; // Resolve when the audio ends
     });
+};
+
+const initializeAudioContext = () => {
+    if (!audioContext) {
+        audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        console.log("AudioContext initialized.");
+    }
 };
 
 // Declare an Audio object for background music
@@ -183,8 +202,11 @@ function App() {
             </div>
             <button
                 className="start-button"
-                onClick={handleStart}
-                disabled={gameStarted} // Disable the button after clicking
+                disabled={gameStarted}
+                onClick={async () => {
+                    initializeAudioContext(); // Activate AudioContext
+                    await handleGameFlow(); // Start the game flow
+                }}
             >
                 Start
             </button>
