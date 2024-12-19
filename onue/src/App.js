@@ -44,14 +44,11 @@ const playAudio = async (filePath) => {
 const initializeAudioContext = () => {
     if (!audioContext) {
         audioContext = new (window.AudioContext || window.webkitAudioContext)();
-        console.log("AudioContext initialized.");
     }
 };
 
-// Declare an Audio object for background music
 let backgroundMusic;
 
-// Function to play background music
 const playBackgroundMusic = (filePath) => {
     if (!backgroundMusic) {
         backgroundMusic = new Audio(filePath);
@@ -69,7 +66,32 @@ const stopBackgroundMusic = () => {
     }
 };
 
-const handleGameFlow = async (characters, selectedCharacters) => {
+const startCountdown = (setIsModalVisible, setTimeLeft, setIsTimeUp) => {
+    setIsModalVisible(true);
+    setTimeLeft(300);
+
+    let timer = 300; // 5 minutes in seconds
+
+    const interval = setInterval(() => {
+        timer -= 1;
+        setTimeLeft(timer);
+
+        // Play "One Minute Left" audio at the 1-minute mark
+        if (timer === 60) {
+            playAudio("./audio/One_Minute_Left.mp3");
+        }
+        
+        if (timer <= 0) {
+            clearInterval(interval); // Stop the interval
+            setIsModalVisible(false); // Hide the countdown modal
+            setIsTimeUp(true); // Show "TIME IS UP!" modal
+            playAudio("./audio/Time_Is_Up.mp3"); // Play "Time Is Up" audio
+            stopBackgroundMusic();
+        }
+    }, 1000);
+};
+
+const handleGameFlow = async (characters, selectedCharacters, setIsModalVisible, setTimeLeft, setIsTimeUp) => {
 
     playBackgroundMusic("./audio/Music_Background.mp3");
     
@@ -88,6 +110,7 @@ const handleGameFlow = async (characters, selectedCharacters) => {
     const insomniacSelected = selectedCharacters.includes("Insomniac");
     const minionSelected = selectedCharacters.includes("Minion");
     const dopplegangerSelected = selectedCharacters.includes("Doppelganger");
+    let lastCharacter = null;
 
     // Start game with announcer
     await playAudio("./audio/Announcer_start.mp3");
@@ -95,6 +118,7 @@ const handleGameFlow = async (characters, selectedCharacters) => {
     for (let i = 0; i < orderedCharacters.length; i++) {
         const character = orderedCharacters[i];
         const previousCharacter = i > 0 ? orderedCharacters[i - 1].group : null;
+        lastCharacter = character.group;
 
         if (character.group === "Doppelganger" && minionSelected) {
             // Special Doppelganger + Minion dialogue
@@ -107,18 +131,14 @@ const handleGameFlow = async (characters, selectedCharacters) => {
             // Standard character dialogue
             if (previousCharacter) {
                 // Play the audio file for previous character's name
-                console.log(`./audio/Name_${previousCharacter.replace(" ", "")}.mp3`);
-                console.log(previousCharacter);
                 await playAudio(`./audio/Name_${previousCharacter.replace(" ", "")}.mp3`);
 
                 await playAudio("./audio/Close_your_eyes.mp3");
             }
 
             // Play the audio file for current character's name
-            console.log(`./audio/Name_${character.group.replace(" ", "")}.mp3`);
             await playAudio(`./audio/Name_${character.group.replace(" ", "")}.mp3`);
             await playAudio("./audio/Wake_Up.mp3");
-            console.log(`./audio/Dialogue_${character.group}.mp3`);
             await playAudio(`./audio/Dialogue_${character.group}.mp3`);
         }
 
@@ -134,17 +154,26 @@ const handleGameFlow = async (characters, selectedCharacters) => {
         await new Promise((resolve) => setTimeout(resolve, 5000));
         await playAudio("./audio/Doppleganger_insomniac_02.mp3");
     }
+    else
+    {
+        await playAudio(`./audio/Name_${lastCharacter.replace(" ", "")}.mp3`);
+        await playAudio("./audio/Close_your_eyes.mp3");
+    }
 
     // End game with announcer
+    await playAudio("./audio/Keep_Eyes_Closed.mp3");
+    await new Promise((resolve) => setTimeout(resolve, 5000));
     await playAudio("./audio/Announcer_end.mp3");
-
-    // Stop background music after the game ends
-    stopBackgroundMusic();
+    startCountdown(setIsModalVisible, setTimeLeft, setIsTimeUp);
 };
 
 function App() {
     const [selectedCharacters, setSelectedCharacters] = useState(["Werewolf #1"]);
     const [gameStarted, setGameStarted] = useState(false);
+
+    const [isModalVisible, setIsModalVisible] = useState(false); // Controls countdown modal visibility
+    const [timeLeft, setTimeLeft] = useState(300); // Stores the countdown timer value in seconds
+    const [isTimeUp, setIsTimeUp] = useState(false); // Controls visibility of the "TIME IS UP!" modal
 
     const toggleCharacterSelection = (characterName) => {
         if (gameStarted) return; // Disable selection if the game has started
@@ -158,7 +187,7 @@ function App() {
 
     const handleStart = () => {
         setGameStarted(true); // Disable selection once the game starts
-        handleGameFlow(characters, selectedCharacters);
+        handleGameFlow(characters, selectedCharacters, setIsModalVisible, setTimeLeft, setIsTimeUp);
     };
 
     return (
@@ -210,6 +239,23 @@ function App() {
             >
                 Start
             </button>
+            {isModalVisible && (
+                <div className="modal">
+                    <div className="modal-content">
+                        <h2 style={{ color: 'black' }}>Time Remaining</h2>
+                        <p>{`${Math.floor(timeLeft / 60)}:${String(timeLeft % 60).padStart(2, '0')}`}</p>
+                    </div>
+                </div>
+            )}
+
+            {isTimeUp && (
+                <div className="modal">
+                    <div className="modal-content">
+                        <h2 style={{ color: 'black' }}>TIME IS UP!</h2>
+                        <p>Vote!</p>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }
