@@ -86,7 +86,7 @@ const handleGameFlow = async (characters, selectedCharacters) => {
     // Insomniac + Doppelganger special case
     if (insomniacSelected && dopplegangerSelected) {
         await playAudio("/audio/Doppleganger_insomniac_01.mp3");
-        await new Promise((resolve) => setTimeout(resolve, 5000)); // 5-second pause
+        await new Promise((resolve) => setTimeout(resolve, 5000));
         await playAudio("/audio/Doppleganger_insomniac_02.mp3");
     }
 
@@ -96,14 +96,21 @@ const handleGameFlow = async (characters, selectedCharacters) => {
 
 function App() {
     const [selectedCharacters, setSelectedCharacters] = useState(["Werewolf #1"]);
+    const [gameStarted, setGameStarted] = useState(false);
 
     const toggleCharacterSelection = (characterName) => {
+        if (gameStarted) return; // Disable selection if the game has started
         if (characterName === "Werewolf #1") return; // Prevent deselecting Werewolf #1
         setSelectedCharacters((prev) =>
             prev.includes(characterName)
                 ? prev.filter((item) => item !== characterName)
                 : [...prev, characterName]
         );
+    };
+
+    const handleStart = () => {
+        setGameStarted(true); // Disable selection once the game starts
+        handleGameFlow(characters, selectedCharacters);
     };
 
     return (
@@ -130,7 +137,9 @@ function App() {
                         key={character.name}
                         className={`character-box ${
                             selectedCharacters.includes(character.name) ? "selected" : ""
-                        } ${character.name === "Werewolf #1" ? "forced-selected" : ""}`}
+                        } ${character.name === "Werewolf #1" ? "forced-selected" : ""} ${
+                            gameStarted ? "disabled" : "" // Add a disabled class when the game has started
+                        }`}
                         onClick={() => toggleCharacterSelection(character.name)}
                     >
                         <img
@@ -145,7 +154,8 @@ function App() {
             </div>
             <button
                 className="start-button"
-                onClick={() => handleGameFlow(characters, selectedCharacters)}
+                onClick={handleStart}
+                disabled={gameStarted} // Disable the button after clicking
             >
                 Start
             </button>

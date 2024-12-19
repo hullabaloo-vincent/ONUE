@@ -17,6 +17,16 @@ h2 {
   color: white;
 }
 
+.character-box.disabled {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+.start-button:disabled {
+  background-color: gray; 
+  cursor: not-allowed;
+}
+
 .character-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -44,19 +54,19 @@ h2 {
 }
 
 .character-image {
-  width: 100px; /* Set a fixed width */
-  height: 100px; /* Set a fixed height */
-  object-fit: cover; /* Ensures the image fits without distortion */
-  border-radius: 5px; /* Optional: gives rounded corners */
+  width: 100px; 
+  height: 100px;
+  object-fit: cover; 
+  border-radius: 5px;
   margin-bottom: 10px;
 }
 
 .character-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr); /* Creates 4 columns */
+  grid-template-columns: repeat(4, 1fr);
   gap: 10px;
   margin: 0 auto;
-  max-width: 600px; /* Limits the overall grid width */
+  max-width: 600px;
 }
 
 .start-button {
@@ -76,6 +86,6 @@ h2 {
 }
 
 .forced-selected {
-  border: 3px solid red; /* Highlight Werewolf #1 */
-  pointer-events: none; /* Prevent clicking */
+  border: 3px solid red;
+  pointer-events: none;
 }
