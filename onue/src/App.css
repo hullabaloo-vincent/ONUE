@@ -23,16 +23,17 @@ h2 {
 }
 
 .start-button:disabled {
-  background-color: gray; 
+  background-color: gray;
   cursor: not-allowed;
 }
 
 .character-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 10px;
-  margin: 0 auto;
-  max-width: 600px;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 16px;
+  justify-items: center;
+  align-items: center;
+  padding: 16px
 }
 
 .character-box {
@@ -54,20 +55,22 @@ h2 {
 }
 
 .character-image {
-  width: 100px; 
+  width: 100px;
   height: 100px;
-  object-fit: cover; 
+  object-fit: cover;
   border-radius: 5px;
   margin-bottom: 10px;
 }
 
 .character-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 10px;
-  margin: 0 auto;
-  max-width: 600px;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 16px; /* Space between items */
+  justify-items: center; /* Center content horizontally */
+  align-items: center; /* Center content vertically */
+  padding: 16px;
 }
+
 
 .start-button {
   margin-top: 20px;
@@ -88,4 +91,15 @@ h2 {
 .forced-selected {
   border: 3px solid red;
   pointer-events: none;
+}
+
+@media (max-width: 600px) {
+  .character-grid {
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 8px;
+  }
+
+  .character-box {
+    padding: 4px;
+  }
 }
