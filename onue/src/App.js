@@ -3,22 +3,22 @@ import backgroundImage from './images/Background.jpeg';
 import "./App.css";
 
 const characters = [
-  { name: "Doppelganger", alt: "Fake Santa", group: "Doppelganger", image: "/images/Doppelganger.png", order: 1},
-  { name: "Werewolf #1", alt: "Elf", group: "Werewolf", image: "/images/Werewolf_1.png", order: 2},
-  { name: "Werewolf #2", alt: "Elf", group: "Werewolf", image: "/images/Werewolf_2.png", order: 2},
-  { name: "Minion", alt: "Toy Soldiers", group: "Minion", image: "/images/Minion.png", order: 3},
-  { name: "Mason #1", alt: "Heat Miser", group: "Mason", image: "/images/Mason_1.png", order: 4},
-  { name: "Mason #2", alt: "Snow Miser", group: "Mason", image: "/images/Mason_2.png", order: 4},
-  { name: "Seer", alt: "Santa", group: "Seer", image: "/images/Seer.png", order: 5},
-  { name: "Robber", alt: "Grinch", group: "Robber", image: "/images/Robber.png", order: 6},
-  { name: "Troublemaker", alt: "Kevin McCallister", group: "Troublemaker", image: "/images/Troublemaker.png", order: 7},
-  { name: "Drunk", alt: "Cousin Eddie", group: "Drunk", image: "/images/Drunk.png", order: 8},
-  { name: "Insomniac", alt: "Cindy Lou Who", group: "Insomniac", image: "/images/Insomniac.png", order: 9},
-  { name: "Hunter", alt: "Ralphie", image: "/images/Hunter.png", order: null},
-  { name: "Tanner", alt: "Scrooge", image: "/images/Tanner.png", order: null},
-  { name: "Villager #1", alt: "Clarice", image: "/images/Villager_1.png", order: null},
-  { name: "Villager #2", alt: "Linus Van Pelt", image: "/images/Villager_2.png", order: null},
-  { name: "Villager #3", alt: "Tiny Tim", image: "/images/Villager_3.png", order: null}
+  { name: "Doppelganger", alt: "Fake Santa", group: "Doppelganger", image: "./images/Doppelganger.png", order: 1},
+  { name: "Werewolf #1", alt: "Elf", group: "Werewolf", image: "./images/Werewolf_1.png", order: 2},
+  { name: "Werewolf #2", alt: "Elf", group: "Werewolf", image: "./images/Werewolf_2.png", order: 2},
+  { name: "Minion", alt: "Toy Soldiers", group: "Minion", image: "./images/Minion.png", order: 3},
+  { name: "Mason #1", alt: "Heat Miser", group: "Mason", image: "./images/Mason_1.png", order: 4},
+  { name: "Mason #2", alt: "Snow Miser", group: "Mason", image: "./images/Mason_2.png", order: 4},
+  { name: "Seer", alt: "Santa", group: "Seer", image: "./images/Seer.png", order: 5},
+  { name: "Robber", alt: "Grinch", group: "Robber", image: "./images/Robber.png", order: 6},
+  { name: "Troublemaker", alt: "Kevin McCallister", group: "Troublemaker", image: "./images/Troublemaker.png", order: 7},
+  { name: "Drunk", alt: "Cousin Eddie", group: "Drunk", image: "./images/Drunk.png", order: 8},
+  { name: "Insomniac", alt: "Cindy Lou Who", group: "Insomniac", image: "./images/Insomniac.png", order: 9},
+  { name: "Hunter", alt: "Ralphie", image: "./images/Hunter.png", order: null},
+  { name: "Tanner", alt: "Scrooge", image: "./images/Tanner.png", order: null},
+  { name: "Villager #1", alt: "Clarice", image: "./images/Villager_1.png", order: null},
+  { name: "Villager #2", alt: "Linus Van Pelt", image: "./images/Villager_2.png", order: null},
+  { name: "Villager #3", alt: "Tiny Tim", image: "./images/Villager_3.png", order: null}
 ];
 
 const playAudio = (filePath) => {
@@ -52,7 +52,7 @@ const stopBackgroundMusic = () => {
 
 const handleGameFlow = async (characters, selectedCharacters) => {
 
-    playBackgroundMusic("/audio/Music_Background.mp3");
+    playBackgroundMusic("./audio/Music_Background.mp3");
     
     // Deduplicate characters by group (only the first occurrence of each group goes)
     const uniqueGroups = new Set();
@@ -71,7 +71,7 @@ const handleGameFlow = async (characters, selectedCharacters) => {
     const dopplegangerSelected = selectedCharacters.includes("Doppelganger");
 
     // Start game with announcer
-    await playAudio("/audio/Announcer_start.mp3");
+    await playAudio("./audio/Announcer_start.mp3");
 
     for (let i = 0; i < orderedCharacters.length; i++) {
         const character = orderedCharacters[i];
@@ -79,28 +79,28 @@ const handleGameFlow = async (characters, selectedCharacters) => {
 
         if (character.group === "Doppelganger" && minionSelected) {
             // Special Doppelganger + Minion dialogue
-            await playAudio("/audio/Doppleganger_minion_01.mp3");
+            await playAudio("./audio/Doppleganger_minion_01.mp3");
             await new Promise((resolve) => setTimeout(resolve, 10000));
-            await playAudio("/audio/Doppleganger_minion_02.mp3");
+            await playAudio("./audio/Doppleganger_minion_02.mp3");
             await new Promise((resolve) => setTimeout(resolve, 10000));
-            await playAudio("/audio/Doppleganger_minion_03.mp3");
+            await playAudio("./audio/Doppleganger_minion_03.mp3");
         } else {
             // Standard character dialogue
             if (previousCharacter) {
                 // Play the audio file for previous character's name
-                console.log(`/audio/Name_${previousCharacter.replace(" ", "")}.mp3`);
+                console.log(`./audio/Name_${previousCharacter.replace(" ", "")}.mp3`);
                 console.log(previousCharacter);
-                await playAudio(`/audio/Name_${previousCharacter.replace(" ", "")}.mp3`);
+                await playAudio(`./audio/Name_${previousCharacter.replace(" ", "")}.mp3`);
 
-                await playAudio("/audio/Close_your_eyes.mp3");
+                await playAudio("./audio/Close_your_eyes.mp3");
             }
 
             // Play the audio file for current character's name
-            console.log(`/audio/Name_${character.group.replace(" ", "")}.mp3`);
-            await playAudio(`/audio/Name_${character.group.replace(" ", "")}.mp3`);
-            await playAudio("/audio/Wake_Up.mp3");
-            console.log(`/audio/Dialogue_${character.group}.mp3`);
-            await playAudio(`/audio/Dialogue_${character.group}.mp3`);
+            console.log(`./audio/Name_${character.group.replace(" ", "")}.mp3`);
+            await playAudio(`./audio/Name_${character.group.replace(" ", "")}.mp3`);
+            await playAudio("./audio/Wake_Up.mp3");
+            console.log(`./audio/Dialogue_${character.group}.mp3`);
+            await playAudio(`./audio/Dialogue_${character.group}.mp3`);
         }
 
         // 10-second pause after each character
@@ -109,13 +109,13 @@ const handleGameFlow = async (characters, selectedCharacters) => {
 
     // Insomniac + Doppelganger special case
     if (insomniacSelected && dopplegangerSelected) {
-        await playAudio("/audio/Doppleganger_insomniac_01.mp3");
+        await playAudio("./audio/Doppleganger_insomniac_01.mp3");
         await new Promise((resolve) => setTimeout(resolve, 5000));
-        await playAudio("/audio/Doppleganger_insomniac_02.mp3");
+        await playAudio("./audio/Doppleganger_insomniac_02.mp3");
     }
 
     // End game with announcer
-    await playAudio("/audio/Announcer_end.mp3");
+    await playAudio("./audio/Announcer_end.mp3");
 
     // Stop background music after the game ends
     stopBackgroundMusic();
