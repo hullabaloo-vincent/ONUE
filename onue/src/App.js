@@ -29,7 +29,31 @@ const playAudio = (filePath) => {
     });
 };
 
+// Declare an Audio object for background music
+let backgroundMusic;
+
+// Function to play background music
+const playBackgroundMusic = (filePath) => {
+    if (!backgroundMusic) {
+        backgroundMusic = new Audio(filePath);
+        backgroundMusic.loop = true; // Enable looping
+        backgroundMusic.volume = 0.5; // Set volume (0.0 to 1.0)
+    }
+    backgroundMusic.play();
+};
+
+// Function to stop background music
+const stopBackgroundMusic = () => {
+    if (backgroundMusic) {
+        backgroundMusic.pause();
+        backgroundMusic.currentTime = 0; // Reset to the beginning
+    }
+};
+
 const handleGameFlow = async (characters, selectedCharacters) => {
+
+    playBackgroundMusic("/audio/Music_Background.mp3");
+    
     // Deduplicate characters by group (only the first occurrence of each group goes)
     const uniqueGroups = new Set();
     const orderedCharacters = characters
@@ -92,6 +116,9 @@ const handleGameFlow = async (characters, selectedCharacters) => {
 
     // End game with announcer
     await playAudio("/audio/Announcer_end.mp3");
+
+    // Stop background music after the game ends
+    stopBackgroundMusic();
 };
 
 function App() {
