@@ -2,11 +2,19 @@
   font-family: Arial, sans-serif;
   text-align: center;
   padding: 20px;
-  background-color: #f7f7f7;
+}
+html, body, #root {
+  margin: 0;
+  padding: 0;
+  height: 100%;
 }
 
 h1 {
   margin-bottom: 20px;
+  color: white;
+}
+h2 {
+  color: white;
 }
 
 .character-grid {
