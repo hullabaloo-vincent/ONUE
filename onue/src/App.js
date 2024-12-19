@@ -109,6 +109,8 @@ const handleGameFlow = async (characters, selectedCharacters) => {
 
     // Insomniac + Doppelganger special case
     if (insomniacSelected && dopplegangerSelected) {
+        await playAudio(`./audio/Name_Insomniac.mp3`);
+        await playAudio("./audio/Close_your_eyes.mp3");
         await playAudio("./audio/Doppleganger_insomniac_01.mp3");
         await new Promise((resolve) => setTimeout(resolve, 5000));
         await playAudio("./audio/Doppleganger_insomniac_02.mp3");
