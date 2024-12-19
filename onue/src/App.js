@@ -3,22 +3,22 @@ import backgroundImage from './images/Background.jpeg';
 import "./App.css";
 
 const characters = [
-  { name: "Doppelganger", alt: "Fake Santa", group: "Doppelganger", image: "/images/doppelganger.png", order: 1},
-  { name: "Werewolf #1", alt: "Elf", group: "Werewolf", image: "/images/werewolf_1.png", order: 2},
-  { name: "Werewolf #2", alt: "Elf", group: "Werewolf", image: "/images/werewolf_2.png", order: 2},
-  { name: "Minion", alt: "Toy Soldiers", group: "Minion", image: "/images/minion.png", order: 3},
-  { name: "Mason #1", alt: "Heat Miser", group: "Mason", image: "/images/mason_1.png", order: 4},
-  { name: "Mason #2", alt: "Snow Miser", group: "Mason", image: "/images/mason_2.png", order: 4},
-  { name: "Seer", alt: "Santa", group: "Seer", image: "/images/seer.png", order: 5},
-  { name: "Robber", alt: "Grinch", group: "Robber", image: "/images/robber.png", order: 6},
-  { name: "Troublemaker", alt: "Kevin McCallister", group: "Troublemaker", image: "/images/troublemaker.png", order: 7},
-  { name: "Drunk", alt: "Cousin Eddie", group: "Drunk", image: "/images/drunk.png", order: 8},
-  { name: "Insomniac", alt: "Cindy Lou Who", group: "Insomniac", image: "/images/insomniac.png", order: 9},
-  { name: "Hunter", alt: "Ralphie", image: "/images/hunter.png", order: null},
-  { name: "Tanner", alt: "Scrooge", image: "/images/tanner.png", order: null},
-  { name: "Villager #1", alt: "Clarice", image: "/images/villager_1.png", order: null},
-  { name: "Villager #2", alt: "Linus Van Pelt", image: "/images/villager_2.png", order: null},
-  { name: "Villager #3", alt: "Tiny Tim", image: "/images/villager_3.png", order: null}
+  { name: "Doppelganger", alt: "Fake Santa", group: "Doppelganger", image: "/images/Doppelganger.png", order: 1},
+  { name: "Werewolf #1", alt: "Elf", group: "Werewolf", image: "/images/Werewolf_1.png", order: 2},
+  { name: "Werewolf #2", alt: "Elf", group: "Werewolf", image: "/images/Werewolf_2.png", order: 2},
+  { name: "Minion", alt: "Toy Soldiers", group: "Minion", image: "/images/Minion.png", order: 3},
+  { name: "Mason #1", alt: "Heat Miser", group: "Mason", image: "/images/Mason_1.png", order: 4},
+  { name: "Mason #2", alt: "Snow Miser", group: "Mason", image: "/images/Mason_2.png", order: 4},
+  { name: "Seer", alt: "Santa", group: "Seer", image: "/images/Seer.png", order: 5},
+  { name: "Robber", alt: "Grinch", group: "Robber", image: "/images/Robber.png", order: 6},
+  { name: "Troublemaker", alt: "Kevin McCallister", group: "Troublemaker", image: "/images/Troublemaker.png", order: 7},
+  { name: "Drunk", alt: "Cousin Eddie", group: "Drunk", image: "/images/Drunk.png", order: 8},
+  { name: "Insomniac", alt: "Cindy Lou Who", group: "Insomniac", image: "/images/Insomniac.png", order: 9},
+  { name: "Hunter", alt: "Ralphie", image: "/images/Hunter.png", order: null},
+  { name: "Tanner", alt: "Scrooge", image: "/images/Tanner.png", order: null},
+  { name: "Villager #1", alt: "Clarice", image: "/images/Villager_1.png", order: null},
+  { name: "Villager #2", alt: "Linus Van Pelt", image: "/images/Villager_2.png", order: null},
+  { name: "Villager #3", alt: "Tiny Tim", image: "/images/Villager_3.png", order: null}
 ];
 
 const playAudio = (filePath) => {
