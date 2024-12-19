@@ -50,7 +50,7 @@ const handleGameFlow = async (characters, selectedCharacters) => {
 
   for (let i = 0; i < orderedCharacters.length; i++) {
     const character = orderedCharacters[i];
-    const previousCharacter = i > 0 ? orderedCharacters[i - 1].alt : null;
+    const previousCharacter = i > 0 ? orderedCharacters[i - 1].group : null;
 
     if (character.group === "Doppelganger" && minionSelected) {
       // Special Doppelganger + Minion dialogue
@@ -65,27 +65,15 @@ const handleGameFlow = async (characters, selectedCharacters) => {
         // Play the audio file for previous character's name
         console.log(`/audio/Name_${previousCharacter.replace(" ", "")}.mp3`);
         console.log(previousCharacter);
-        if (previousCharacter === "Heat Miser" || previousCharacter === "Snow Miser") {
-          console.log("Going in here")
-          console.log(`/audio/Name_Miser.mp3`);
-          await playAudio(`/audio/Name_Miser.mp3`);
-        } else {
-          await playAudio(`/audio/Name_${previousCharacter.replace(" ", "")}.mp3`);
-        }
+        await playAudio(`/audio/Name_${previousCharacter.replace(" ", "")}.mp3`);
+        
         await playAudio("/audio/Close_your_eyes.mp3");
       }
 
       // Play the audio file for current character's name
-      if (character.group === "Mason") {
-        console.log(`/audio/Name_Miser.mp3`);
-        await playAudio(`/audio/Name_Miser.mp3`);
-      } else {
-        console.log(`/audio/Name_${character.alt.replace(" ", "")}.mp3`);
-        await playAudio(`/audio/Name_${character.alt.replace(" ", "")}.mp3`);
-      }
-      
+      console.log(`/audio/Name_${character.group.replace(" ", "")}.mp3`);
+      await playAudio(`/audio/Name_${character.group.replace(" ", "")}.mp3`);
       await playAudio("/audio/Wake_Up.mp3");
-      
       console.log(`/audio/Dialogue_${character.group}.mp3`);
       await playAudio(`/audio/Dialogue_${character.group}.mp3`);
     }
