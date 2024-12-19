@@ -202,11 +202,11 @@ function App() {
             </div>
             <button
                 className="start-button"
-                disabled={gameStarted}
                 onClick={async () => {
                     initializeAudioContext(); // Activate AudioContext
-                    await handleGameFlow(); // Start the game flow
+                    await handleStart(); // Start the game flow
                 }}
+                disabled={gameStarted}
             >
                 Start
             </button>
