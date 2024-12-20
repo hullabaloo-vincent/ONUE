@@ -13,12 +13,11 @@ function createWindow() {
     });
 
     mainWindow.loadFile(path.join(__dirname, 'build', 'index.html'));
-    
+    //mainWindow.webContents.openDevTools(); // Enable Developer Tools
 }
 
 app.whenReady().then(() => {
     createWindow();
-
     app.on('activate', () => {
         if (BrowserWindow.getAllWindows().length === 0) {
             createWindow();
