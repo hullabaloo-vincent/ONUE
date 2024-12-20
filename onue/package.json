@@ -1,7 +1,9 @@
 {
   "name": "onue",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
+  "description": "One Night Ultimate Elf, a Christmas themed game based on One Night Ultimate Werewolf.",
+  "author": "Vincent Aliquo",
   "dependencies": {
     "cra-template": "1.2.0",
     "electron-squirrel-startup": "^1.0.1",
@@ -9,19 +11,21 @@
     "react-dom": "^19.0.0",
     "react-scripts": "5.0.1"
   },
-  "main": "main.js",
+  "main": "public/electron.js",
   "homepage": "./",
   "scripts": {
     "start": "electron-forge start",
     "build": "react-scripts build",
     "electron": "electron .",
     "package": "electron-forge package",
-    "make": "electron-forge make"
+    "make": "electron-forge make",
+    "dist": "electron-builder"
   },
   "build": {
-    "appId": "com.example.myapp",
+    "appId": "com.vincent.onue",
     "mac": {
-      "icon": "assets/icon.icns"
+      "icon": "assets/icon.icns",
+      "hardenedRuntime": false
     },
     "win": {
       "icon": "assets/icon.ico"

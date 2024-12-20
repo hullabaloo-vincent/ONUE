@@ -9,10 +9,10 @@ function createWindow() {
             nodeIntegration: true, // Disable Node.js in renderer for security
             contextIsolation: true
         },
-        icon: path.join(__dirname, 'assets', 'icon.icns'), // macOS
+        icon: path.join(__dirname, '..', 'assets', 'icon.icns'), // macOS
     });
 
-    mainWindow.loadFile(path.join(__dirname, 'build', 'index.html'));
+    mainWindow.loadFile(path.join(__dirname, '..', 'build', 'index.html'));
     //mainWindow.webContents.openDevTools(); // Enable Developer Tools
 }
 
